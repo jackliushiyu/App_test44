@@ -5,5 +5,6 @@ class Toutiao:
     def run(self):
         Runner().runner()
 
+
 if __name__ == '__main__':
     Toutiao().run()

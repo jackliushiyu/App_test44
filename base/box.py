@@ -38,11 +38,24 @@ class Base:
         elif selector.split(',')[0] in ["x", "xpath"]:
             element = self.__driver.find_element(*self.__convert_selector_to_locator(selector))
         elif selector.split(',')[0] in ['t', 'text']:
-            element = self.__driver.find_element_by_android_uiautomator('new UiSelector().text("%s")' % selector.split(',')[1])
+            # 新版本，driver进行了重新封装
+            element = self.__driver.find_element('-android uiautomator',
+                                                 'new UiSelector().text("%s")' % selector.split(',')[1])
+            # 旧版本方法
+            # element = self.__driver.find_element_by_android_uiautomator(
+            #     'new UiSelector().text("%s")' % selector.split(',')[1])
         elif selector.split(',')[0] in ['c', 'className']:
-            element = self.__driver.find_element_by_android_uiautomator('new UiSelector().className("%s")' % selector.split(',')[1])
+            element = self.__driver.find_element('-android uiautomator',
+                                                 'new UiSelector().className("%s")' % selector.split(',')[1])
+            # 旧版本方法
+            # element = self.__driver.find_element_by_android_uiautomator(
+            #     'new UiSelector().className("%s")' % selector.split(',')[1])
         elif selector.split(',')[0] in ['r', 'resourceId']:
-            element = self.__driver.find_element_by_android_uiautomator('new UiSelector().resourceId("%s")' % selector.split(',')[1])
+            element = self.__driver.find_element('-android uiautomator',
+                                                 'new UiSelector().resourceId("%s")' % selector.split(',')[1])
+            # 旧版本方法
+            # element = self.__driver.find_element_by_android_uiautomator(
+            #     'new UiSelector().resourceId("%s")' % selector.split(',')[1])
         else:
             raise Exception('请输入正确的选择器')
         return element
@@ -50,13 +63,17 @@ class Base:
     def swipe(self, direction):
         size = self.__driver.get_window_size()
         if direction in ['u', 'up']:
-            self.__driver.swipe(start_x=int(size['width']/2), start_y=int(size['height']*0.2), end_x=int(size['width']/2), end_y=int(size['height']*0.8))
+            self.__driver.swipe(start_x=int(size['width'] / 2), start_y=int(size['height'] * 0.2),
+                                end_x=int(size['width'] / 2), end_y=int(size['height'] * 0.8))
         elif direction in ['d', 'down']:
-            self.__driver.swipe(start_x=int(size['width'] / 2), start_y=int(size['height'] * 0.8), end_x=int(size['width'] / 2), end_y=int(size['height'] * 0.2))
+            self.__driver.swipe(start_x=int(size['width'] / 2), start_y=int(size['height'] * 0.8),
+                                end_x=int(size['width'] / 2), end_y=int(size['height'] * 0.2))
         elif direction in ['l', 'left']:
-            self.__driver.swipe(start_x=int(size['width']*0.8), start_y=int(size['height']/2), end_x=int(size['width']*0.2), end_y=int(size['height']/2))
+            self.__driver.swipe(start_x=int(size['width'] * 0.8), start_y=int(size['height'] / 2),
+                                end_x=int(size['width'] * 0.2), end_y=int(size['height'] / 2))
         elif direction in ['r', 'right']:
-            self.__driver.swipe(start_x=int(size['width'] * 0.2), start_y=int(size['height'] / 2), end_x=int(size['width'] * 0.8), end_y=int(size['height'] / 2))
+            self.__driver.swipe(start_x=int(size['width'] * 0.2), start_y=int(size['height'] / 2),
+                                end_x=int(size['width'] * 0.8), end_y=int(size['height'] / 2))
         else:
             raise Exception('请给正确的方向')
 
@@ -86,11 +103,24 @@ class Base:
         elif selector.split(',')[0] in ["x", "xpath"]:
             elements = self.__driver.find_elements(*self.__convert_selector_to_locator(selector))
         elif selector.split(',')[0] in ['t', 'text']:
-            elements = self.__driver.find_elements_by_android_uiautomator('new UiSelector().text("%s")' % selector.split(',')[1])
+            # 新版本，driver进行了重新封装
+            elements = self.__driver.find_element('-android uiautomator',
+                                                  'new UiSelector().text("%s")' % selector.split(',')[1])
+            # 旧版本方法
+            # elements = self.__driver.find_elements_by_android_uiautomator(
+            #     'new UiSelector().text("%s")' % selector.split(',')[1])
         elif selector.split(',')[0] in ['c', 'className']:
-            elements = self.__driver.find_elements_by_android_uiautomator('new UiSelector().className("%s")' % selector.split(',')[1])
+            elements = self.__driver.find_element('-android uiautomator',
+                                                  'new UiSelector().className("%s")' % selector.split(',')[1])
+            # 旧版本方法
+            # elements = self.__driver.find_elements_by_android_uiautomator(
+            #     'new UiSelector().className("%s")' % selector.split(',')[1])
         elif selector.split(',')[0] in ['r', 'resourceId']:
-            elements = self.__driver.find_elements_by_android_uiautomator('new UiSelector().resourceId("%s")' % selector.split(',')[1])
+            elements = self.__driver.find_element('-android uiautomator',
+                                                  'new UiSelector().resourceId("%s")' % selector.split(',')[1])
+            # 旧版本方法
+            # elements = self.__driver.find_elements_by_android_uiautomator(
+            #     'new UiSelector().resourceId("%s")' % selector.split(',')[1])
         else:
             raise Exception('请输入正确的选择器')
         return elements
@@ -185,7 +215,6 @@ class Info:
         """
         cmd = 'adb shell pm clear %s' % package_name
         os.popen(cmd)
-
 
 # info = Info()
 # info.get_device_name()

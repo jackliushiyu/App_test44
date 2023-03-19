@@ -5,7 +5,7 @@ from selenium.webdriver.common.by import By
 cap = {}
 cap['platformName'] = 'Android'
 cap['platformVersion'] = '5.1.1'
-cap['deviceName'] ='127.0.0.1:62001 device'
+cap['deviceName'] = '127.0.0.1:62001 device'
 
 user = '15333606956'
 password = '420151175'
